@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/hello"
+    />
+
+<ImageView
+    android:id="@+id/CpuImageView"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:src="@drawable/newton" />
+
+<ImageView
+    android:id="@+id/PlayerImageView"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:src="@drawable/bernuli" />
+
+<ImageView
+    android:id="@+id/imageView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:src="@drawable/gravity" />
+
+<ImageButton
+    android:id="@+id/ImageButton02"
+    android:layout_width="50dp"
+    android:layout_height="100dp"
+    android:layout_alignParentBottom="true"
+    android:layout_toRightOf="@+id/PlayerImageView"
+    android:src="@drawable/gravity"
+    android:tag="2" />
+
+<ImageButton
+    android:id="@+id/ImageButton00"
+    android:layout_width="50dp"
+    android:layout_height="100dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:src="@drawable/gravity"
+    android:tag="0" />
+
+<ImageButton
+    android:id="@+id/ImageButton01"
+    android:layout_width="50dp"
+    android:layout_height="100dp"
+    android:layout_alignParentBottom="true"
+    android:layout_toLeftOf="@+id/ImageButton02"
+    android:src="@drawable/gravity"
+    android:tag="1" />
+
+<ImageButton
+    android:id="@+id/ImageButton03"
+    android:layout_width="50dp"
+    android:layout_height="100dp"
+    android:layout_alignParentBottom="true"
+    android:layout_toRightOf="@+id/ImageButton02"
+    android:src="@drawable/gravity"
+    android:tag="3" />
+
+</RelativeLayout>
