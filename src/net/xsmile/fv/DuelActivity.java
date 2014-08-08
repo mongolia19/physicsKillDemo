@@ -69,7 +69,13 @@ public class DuelActivity extends Activity{
 	ImageView CpuDeckCardView;
 	
 	/////////////////////
+	int Random2N(int n)
+	{
+		
+		 return (int)(Math.random()*n)+1;
+	}
 	
+	/////////////////////
 	void UpdateCardUI(ArrayList<Card> hand_cards,ImageButton[] handCardArray)
 	{
 		for	(int i=0;i<handCardArray.length;i++)
@@ -170,10 +176,10 @@ public class DuelActivity extends Activity{
      	////////////////////
 		////DrawCards for every player
 		///////////////////
-     	Player.getOneCard(TakeOutOneAt(Deck, 0));
-     	Player.getOneCard(TakeOutOneAt(Deck,  Deck.size()-1));
-     	Cpu.getOneCard(TakeOutOneAt(Deck, 2));
-     	Cpu.getOneCard(TakeOutOneAt(Deck, Deck.size()-1));
+     	Player.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
+     	Player.getOneCard(TakeOutOneAt(Deck, Random2N( Deck.size()-1)));
+     	Cpu.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
+     	Cpu.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
      	
      	HandCardArray=new ImageButton[4];
      	HandCardArray[0]=(ImageButton)findViewById(R.id.ImageButton00);
@@ -223,6 +229,7 @@ public class DuelActivity extends Activity{
 						
 						
 					}
+					/////////////Game State update
 					GameState=GameManager.GameStateUpdate(GameState);
 					////////////
 					//update UI
@@ -236,10 +243,24 @@ public class DuelActivity extends Activity{
 				
 				if	(GameState==CpuRespond)
 				{
-					
-					
 					/////AI Logic
+					playedCardByCpu=AiDefendLogic(Cpu,playedCardByPlayer);
+					GameManager.kill(Player, Cpu, playedCardByPlayer, playedCardByCpu);
+					
+					
+					
+					GameState=GameManager.GameStateUpdate(GameState);
+					
+					
+					
+					UpdateCardUI(Player.getAllHandCards(),HandCardArray);
+					
+					UpdateDeckCardsUI(PlayerDeckCardView, playedCardByPlayer);
+					UpdateDeckCardsUI(CpuDeckCardView, playedCardByCpu);
+			
 				}
+				
+				
 			}
 		});
      	
@@ -249,7 +270,31 @@ public class DuelActivity extends Activity{
     
   
     
-    @Override
+    protected Card AiDefendLogic(Person p ,Card c) {
+		// TODO Auto-generated method stub
+    	Card	cardShouldPlay=null;
+    	ArrayList<Card> all_hand_cards=p.getAllHandCards();
+    	if(c.getType()==gravity||c.getType()==electric||c.getType()==strong)
+    	{
+			for (int i = 0; i < all_hand_cards.size(); i++)
+			{
+				if(all_hand_cards.get(i).getType()==antipower)
+				{
+					
+					cardShouldPlay=p.removeOneCardAt(i);
+				}
+			}
+    	}
+    	else
+    	{
+    		
+    		
+    	}
+    	return cardShouldPlay;
+    	
+	}
+
+	@Override
     public void onDestroy(){
     	super.onDestroy();
     	//在程序退出(Activity销毁）时销毁悬浮窗口
