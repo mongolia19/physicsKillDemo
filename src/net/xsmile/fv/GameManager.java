@@ -1,25 +1,33 @@
 package net.xsmile.fv;
 
-public static class  GameManager 
+public class  GameManager 
 {
-	final int  PlayerDrawCards=0;
-	final int PlayerPlay=1;
-	final int PlayerRespond=2;
-	final int PUpdateState=3;
-	final int PlayerDiscard=4;
-	final int  CpuDrawCards=5;
-	final int CpuPlay=6;
-	final int CpuRespond=7;
-	final int CUpdateState=8;
-	final int CpuDiscard=9;
-	final int GamePause=10;
+	final static int  PlayerDrawCards=0;
+	final static int PlayerPlay=1;
+	final static int PlayerRespond=2;
+	final static int PUpdateState=3;
+	final static int PlayerDiscard=4;
+	final static int  CpuDrawCards=5;
+	final static int CpuPlay=6;
+	final static int CpuRespond=7;
+	final static int CUpdateState=8;
+	final static int CpuDiscard=9;
+	final static int GamePause=10;
+	
+	final static int antiPower=4;
+	
+	
 	public	static void kill(Person killer,Person killed,Card KillCard,Card DefendCard)
 	{
-		if	(KillCard.getgetType()!=4&&DefendCard.getgetType()==4)//One is power the other is anti
+		if (KillCard==null)
+		{
+			
+		}
+		else if (KillCard.getType()!=antiPower&&DefendCard.getType()==antiPower)//One is power the other is anti
 		{
 		
 		}
-		else if(KillCard.getgetType()!=4&&DefendCard.getgetType()!=4)//The killed's mass is reduced by one
+		else if (KillCard.getType()!=antiPower&&(DefendCard==null||DefendCard.getType()!=antiPower))//The killed's mass is reduced by one
 		{
 			killed.setMass(killed.getMass()-1);
 		}
@@ -27,7 +35,7 @@ public static class  GameManager
 		
 		
 	} 
-	public int GameStateUpdate(int CurrentState) 
+	public static int GameStateUpdate(int CurrentState) 
 	{
 		int NextState;
 		if (CurrentState==PlayerDrawCards) {

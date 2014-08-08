@@ -5,11 +5,7 @@
     android:layout_height="fill_parent"
     >
 
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
+
 
 <ImageView
     android:id="@+id/CpuImageView"
@@ -41,7 +37,7 @@
     android:layout_height="100dp"
     android:layout_alignParentBottom="true"
     android:layout_toRightOf="@+id/PlayerImageView"
-    android:src="@drawable/gravity"
+ 
     android:tag="2" />
 
 <ImageButton
@@ -50,7 +46,7 @@
     android:layout_height="100dp"
     android:layout_alignParentBottom="true"
     android:layout_alignParentLeft="true"
-    android:src="@drawable/gravity"
+    
     android:tag="0" />
 
 <ImageButton
@@ -59,7 +55,7 @@
     android:layout_height="100dp"
     android:layout_alignParentBottom="true"
     android:layout_toLeftOf="@+id/ImageButton02"
-    android:src="@drawable/gravity"
+    
     android:tag="1" />
 
 <ImageButton
@@ -68,7 +64,7 @@
     android:layout_height="100dp"
     android:layout_alignParentBottom="true"
     android:layout_toRightOf="@+id/ImageButton02"
-    android:src="@drawable/gravity"
+   
     android:tag="3" />
 
 </RelativeLayout>

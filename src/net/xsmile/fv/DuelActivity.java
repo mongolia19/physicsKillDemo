@@ -5,20 +5,10 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Gallery;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ImageButton;
 
 public class DuelActivity extends Activity{
     ArrayList<Card> Deck;
@@ -36,28 +26,28 @@ public class DuelActivity extends Activity{
 	final int GamePause=9;
 	
 	int GameState=GamePause;
-	Button HandCardArray[];
-	void UpdateCardUI(ArrayList<Card> hand_cards,Button [] hand_cards_UI)
+	ImageButton HandCardArray[];
+	void UpdateCardUI(ArrayList<Card> hand_cards,ImageButton[] handCardArray)
 	{
-		for	(int i=0;i<hand_cards_UI.length;i++)
+		for	(int i=0;i<handCardArray.length;i++)
 		{
 			if(hand_cards.size()-1>=i)
 			{
 				if(hand_cards.get(i).getType()==0)
 				{
-					(hand_cards_UI[i]).setBackgroundResource(R.drawable.gravity);
+					(handCardArray[i]).setBackgroundResource(R.drawable.gravity);
 					
 				}
 				else
 				{
-					(hand_cards_UI[i]).setBackgroundResource(R.drawable.anti);
+					(handCardArray[i]).setBackgroundResource(R.drawable.anti);
 					
 				}
 				
 			}
 			else
 			{
-				(hand_cards_UI[i]).setBackgroundColor(Color.WHITE);//(R.drawable.gravity);
+				(handCardArray[i]).setBackgroundColor(Color.WHITE);//(R.drawable.gravity);
 			}
 			
 			
@@ -112,15 +102,15 @@ public class DuelActivity extends Activity{
 		////DrawCards for every player
 		///////////////////
      	Player.getOneCard(TakeOutOneAt(Deck, 0));
-     	Player.getOneCard(TakeOutOneAt(Deck, 0));
+     	Player.getOneCard(TakeOutOneAt(Deck,  Deck.size()-1));
      	Cpu.getOneCard(TakeOutOneAt(Deck, 2));
      	Cpu.getOneCard(TakeOutOneAt(Deck, Deck.size()-1));
      	
-     	HandCardArray=new Button[4];
-     	HandCardArray[0]=(Button)findViewById(R.id.ImageButton00);
-     	HandCardArray[1]=(Button)findViewById(R.id.ImageButton01);
-     	HandCardArray[2]=(Button)findViewById(R.id.ImageButton02);
-     	HandCardArray[3]=(Button)findViewById(R.id.ImageButton03);
+     	HandCardArray=new ImageButton[4];
+     	HandCardArray[0]=(ImageButton)findViewById(R.id.ImageButton00);
+     	HandCardArray[1]=(ImageButton)findViewById(R.id.ImageButton01);
+     	HandCardArray[2]=(ImageButton)findViewById(R.id.ImageButton02);
+     	HandCardArray[3]=(ImageButton)findViewById(R.id.ImageButton03);
      	UpdateCardUI(Deck,HandCardArray);
 		
 		
