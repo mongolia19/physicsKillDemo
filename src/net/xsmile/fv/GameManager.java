@@ -1,6 +1,6 @@
 package net.xsmile.fv;
 
-public class  GameManager 
+public static class  GameManager 
 {
 	final int  PlayerDrawCards=0;
 	final int PlayerPlay=1;
@@ -15,7 +15,14 @@ public class  GameManager
 	final int GamePause=10;
 	public	static void kill(Person killer,Person killed,Card KillCard,Card DefendCard)
 	{
+		if	(KillCard.getgetType()!=4&&DefendCard.getgetType()==4)//One is power the other is anti
+		{
 		
+		}
+		else if(KillCard.getgetType()!=4&&DefendCard.getgetType()!=4)//The killed's mass is reduced by one
+		{
+			killed.setMass(killed.getMass()-1);
+		}
 		
 		
 		

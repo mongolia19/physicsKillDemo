@@ -41,7 +41,7 @@ public class DuelActivity extends Activity{
 	{
 		for	(int i=0;i<hand_cards_UI.length;i++)
 		{
-			if(hand_cards.size()>=i)
+			if(hand_cards.size()-1>=i)
 			{
 				if(hand_cards.get(i).getType()==0)
 				{
@@ -54,9 +54,9 @@ public class DuelActivity extends Activity{
 					
 				}
 				
-			}else
+			}
+			else
 			{
-				
 				(hand_cards_UI[i]).setBackgroundColor(Color.WHITE);//(R.drawable.gravity);
 			}
 			
@@ -108,7 +108,9 @@ public class DuelActivity extends Activity{
      	Player=new Newton("Newton",3);
      	
      	initDeck();
-     	
+     	////////////////////
+		////DrawCards for every player
+		///////////////////
      	Player.getOneCard(TakeOutOneAt(Deck, 0));
      	Player.getOneCard(TakeOutOneAt(Deck, 0));
      	Cpu.getOneCard(TakeOutOneAt(Deck, 2));
@@ -119,7 +121,9 @@ public class DuelActivity extends Activity{
      	HandCardArray[1]=(Button)findViewById(R.id.ImageButton01);
      	HandCardArray[2]=(Button)findViewById(R.id.ImageButton02);
      	HandCardArray[3]=(Button)findViewById(R.id.ImageButton03);
-     	
+     	UpdateCardUI(Deck,HandCardArray);
+		
+		
     }
     
   
