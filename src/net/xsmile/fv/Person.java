@@ -27,6 +27,13 @@ public class Person {
 		return c;
 		
 	}
+	public Card removeOneCardAt(int i)
+	{
+		Card c=HandCards.get(i);
+		HandCards.remove(i);
+		return c;
+		
+	}
 	
 	public int getMass()
 	{

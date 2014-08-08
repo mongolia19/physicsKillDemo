@@ -23,14 +23,6 @@
     android:layout_alignParentTop="true"
     android:src="@drawable/bernuli" />
 
-<ImageView
-    android:id="@+id/imageView1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_centerVertical="true"
-    android:src="@drawable/gravity" />
-
 <ImageButton
     android:id="@+id/ImageButton02"
     android:layout_width="50dp"
@@ -66,5 +58,30 @@
     android:layout_toRightOf="@+id/ImageButton02"
    
     android:tag="3" />
+
+<Button
+    android:id="@+id/PlayBtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/CpuImageView"
+    android:layout_alignLeft="@+id/CpuImageView"
+    android:layout_alignParentRight="true"
+    android:text="Play" />
+
+<ImageView
+    android:id="@+id/PlayerCardImageView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignRight="@+id/ImageButton02"
+    android:layout_centerVertical="true"
+     />
+
+<ImageView
+    android:id="@+id/CpuCardImageView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/ImageButton03"
+    android:layout_alignTop="@+id/PlayerCardImageView"
+     />
 
 </RelativeLayout>

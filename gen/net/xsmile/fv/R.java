@@ -14,21 +14,26 @@ public final class R {
         public static final int anti=0x7f020000;
         public static final int bernuli=0x7f020001;
         public static final int einstein=0x7f020002;
-        public static final int galio=0x7f020003;
-        public static final int gravity=0x7f020004;
-        public static final int icon=0x7f020005;
-        public static final int joe=0x7f020006;
-        public static final int newton=0x7f020007;
+        public static final int electric=0x7f020003;
+        public static final int galio=0x7f020004;
+        public static final int gravity=0x7f020005;
+        public static final int icon=0x7f020006;
+        public static final int joe=0x7f020007;
+        public static final int newton=0x7f020008;
+        public static final int strong=0x7f020009;
+        public static final int weak=0x7f02000a;
     }
     public static final class id {
+        public static final int CpuCardImageView=0x7f05000a;
         public static final int CpuImageView=0x7f050002;
-        public static final int ImageButton00=0x7f050006;
-        public static final int ImageButton01=0x7f050007;
-        public static final int ImageButton02=0x7f050005;
-        public static final int ImageButton03=0x7f050008;
+        public static final int ImageButton00=0x7f050005;
+        public static final int ImageButton01=0x7f050006;
+        public static final int ImageButton02=0x7f050004;
+        public static final int ImageButton03=0x7f050007;
+        public static final int PlayBtn=0x7f050008;
+        public static final int PlayerCardImageView=0x7f050009;
         public static final int PlayerImageView=0x7f050003;
         public static final int gallery=0x7f050001;
-        public static final int imageView1=0x7f050004;
         public static final int wupinname=0x7f050000;
     }
     public static final class layout {

@@ -2,18 +2,54 @@
 package net.xsmile.fv;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import android.app.Activity;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class DuelActivity extends Activity{
-    ArrayList<Card> Deck;
+	private static final int antipower = 4;
+	private static final int gravity = 0;
+	private static final int electric = 1;
+	private static final int strong = 2;
+	private static final int weak = 3;
+
+
+	/////////
+	//
+	///////////////
+	OnClickListener  cardListener=new OnClickListener() {
+    	@Override  
+        public void onClick(View v) 
+    	{  
+    		String tag = v.getTag().toString();
+    		ChosenCardIndex=Integer.valueOf(tag);
+        }
+
+	
+	};
+	
+	
+	
+	///////////////////
+	ArrayList<Card> Deck;
 	Person Cpu;
 	Person Player;
+	int ChosenCardIndex;
+	Card playedCardByPlayer;
+	Card playedCardByCpu;
+	
+	/////
+	///below are consts
+	///
 	final int  PlayerDrawCards=0;
 	final int PlayerPlay=1;
 	final int PlayerRespond=2;
@@ -25,33 +61,63 @@ public class DuelActivity extends Activity{
 	final int CpuDiscard=8;
 	final int GamePause=9;
 	
-	int GameState=GamePause;
+	int GameState=GamePause;/////record the game state
 	ImageButton HandCardArray[];
+	////////UIs
+	Button PlayBtn;
+	ImageView PlayerDeckCardView;
+	ImageView CpuDeckCardView;
+	
+	/////////////////////
+	
 	void UpdateCardUI(ArrayList<Card> hand_cards,ImageButton[] handCardArray)
 	{
 		for	(int i=0;i<handCardArray.length;i++)
 		{
 			if(hand_cards.size()-1>=i)
 			{
-				if(hand_cards.get(i).getType()==0)
-				{
-					(handCardArray[i]).setBackgroundResource(R.drawable.gravity);
-					
-				}
-				else
-				{
-					(handCardArray[i]).setBackgroundResource(R.drawable.anti);
-					
-				}
+				setPicByCardType( handCardArray[i],hand_cards.get(i) );
+				
 				
 			}
 			else
 			{
-				(handCardArray[i]).setBackgroundColor(Color.WHITE);//(R.drawable.gravity);
+				setPicByCardType( handCardArray[i],null);
 			}
 			
 			
 		}
+		
+	}
+	
+	void setPicByCardType(View v,Card c)
+	{
+		if(c==null)
+		{
+			v.setBackgroundColor(Color.WHITE);
+		}
+		else if(c.getType()==antipower)
+		{
+			v.setBackgroundResource(R.drawable.anti);
+		}
+		else if (c.getType()==gravity) {
+			v.setBackgroundResource(R.drawable.gravity);
+		}
+		else if (c.getType()==electric) {
+			v.setBackgroundResource(R.drawable.electric);
+		}
+		else if (c.getType()==strong) {
+			v.setBackgroundResource(R.drawable.strong);
+		}
+		else if (c.getType()==weak) {
+			v.setBackgroundResource(R.drawable.weak);
+		}
+		
+	}
+	void UpdateDeckCardsUI(ImageView IV,Card c)
+	{
+		setPicByCardType(IV, c);
+		
 		
 	}
 	public void initDeck()
@@ -97,6 +163,9 @@ public class DuelActivity extends Activity{
      	Cpu=new Joule("Joule", 3);
      	Player=new Newton("Newton",3);
      	
+     	
+     	
+     	
      	initDeck();
      	////////////////////
 		////DrawCards for every player
@@ -111,8 +180,70 @@ public class DuelActivity extends Activity{
      	HandCardArray[1]=(ImageButton)findViewById(R.id.ImageButton01);
      	HandCardArray[2]=(ImageButton)findViewById(R.id.ImageButton02);
      	HandCardArray[3]=(ImageButton)findViewById(R.id.ImageButton03);
-     	UpdateCardUI(Deck,HandCardArray);
+     	
+     	for (int i = 0; i < HandCardArray.length; i++)
+     	{
+     		HandCardArray[i].setOnClickListener(cardListener);
+			
+		}
+     	
+     	PlayerDeckCardView=(ImageView)findViewById(R.id.PlayerCardImageView);
+     	CpuDeckCardView=(ImageView)findViewById(R.id.CpuCardImageView);
+     	
+     	playedCardByCpu=null;
+     	playedCardByPlayer=null;
+     	
+     	
+     	
+     	UpdateCardUI(Player.getAllHandCards(),HandCardArray);
 		
+     	PlayBtn=(Button)findViewById(R.id.PlayBtn);
+     	
+     	
+     	GameState=PlayerPlay;//human go first
+     	
+     	PlayBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (GameState==PlayerPlay)
+				{
+					
+				
+					// TODO Auto-generated method stub
+					if(ChosenCardIndex>Player.getAllHandCards().size()-1)
+					{
+						
+						
+					}
+					else
+					{
+						
+						playedCardByPlayer=Player.removeOneCardAt(ChosenCardIndex);
+						
+						
+					}
+					GameState=GameManager.GameStateUpdate(GameState);
+					////////////
+					//update UI
+					UpdateCardUI(Player.getAllHandCards(),HandCardArray);
+					
+					UpdateDeckCardsUI(PlayerDeckCardView, playedCardByPlayer);
+					UpdateDeckCardsUI(CpuDeckCardView, playedCardByCpu);
+					
+				}
+				
+				
+				if	(GameState==CpuRespond)
+				{
+					
+					
+					/////AI Logic
+				}
+			}
+		});
+     	
+     	
 		
     }
     
