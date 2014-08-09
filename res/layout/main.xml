@@ -84,4 +84,87 @@
     android:layout_alignTop="@+id/PlayerCardImageView"
      />
 
+<TextView
+    android:id="@+id/PlayerHandCardNumView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/PlayBtn"
+    android:layout_alignParentRight="true"
+    android:text="0"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/textView2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/PlayerHandCardNumView"
+    android:layout_alignParentRight="true"
+    android:text="手牌数"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/PlayerMassView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/textView2"
+    android:layout_alignParentRight="true"
+    android:text="0"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/textView4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/PlayerMassView"
+    android:layout_alignParentRight="true"
+    android:text="质量"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/textView1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignRight="@+id/ImageButton03"
+    android:text="质量"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/CpuMassView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/textView1"
+    android:layout_below="@+id/textView1"
+    android:text="0"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/textView3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/CpuCardImageView"
+    android:layout_below="@+id/CpuMassView"
+    android:text="手牌数"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/CpuHandCardNumView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/CpuMassView"
+    android:layout_below="@+id/textView3"
+    android:layout_toLeftOf="@+id/PlayBtn"
+    android:text="0"
+    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+<TextView
+    android:id="@+id/GameStateTextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@+id/PlayerImageView"
+    android:layout_marginTop="18dp"
+    android:text="Large Text"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </RelativeLayout>

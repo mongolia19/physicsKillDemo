@@ -16,22 +16,49 @@ public class  GameManager
 	
 	final static int antiPower=4;
 	
+	public static int CheckWhoWin(Person human,Person computer)
+	{
+		if	(human.getMass()<=0)
+		{
+			return 1;//cpu wins
+		}
+		else if(computer.getMass()<=0)
+		{
+			return 2;//human wins
+			
+		}
+		else
+		{
+			return 0;// No body wins
+			
+			
+		}
+	}
 	
 	public	static void kill(Person killer,Person killed,Card KillCard,Card DefendCard)
 	{
+		
+		/////////////////////
+		////////Should
+		//////// add detection to judge if the kill card is a antipower which is not allowed
+		////////////////////////
 		if (KillCard==null)
 		{
 			
+		}
+		else if (KillCard.getType()!=antiPower&&(DefendCard==null))//The killed's mass is reduced by one
+		{
+			killed.setMass(killed.getMass()-1);
 		}
 		else if (KillCard.getType()!=antiPower&&DefendCard.getType()==antiPower)//One is power the other is anti
 		{
 		
 		}
-		else if (KillCard.getType()!=antiPower&&(DefendCard==null||DefendCard.getType()!=antiPower))//The killed's mass is reduced by one
+		else if(KillCard.getType()!=antiPower&&DefendCard.getType()!=antiPower)
 		{
 			killed.setMass(killed.getMass()-1);
+			
 		}
-		
 		
 		
 	} 
