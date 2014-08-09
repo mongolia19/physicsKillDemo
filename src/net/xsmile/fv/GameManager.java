@@ -59,6 +59,13 @@ public class  GameManager
 			killed.setMass(killed.getMass()-1);
 			
 		}
+		else if(KillCard.getType()==antiPower)
+		{
+			
+			killer.getOneCard(KillCard);
+			
+			
+		}
 		
 		
 	} 

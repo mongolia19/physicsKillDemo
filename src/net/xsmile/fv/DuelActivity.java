@@ -311,7 +311,7 @@ public class DuelActivity extends Activity{
 				WaitForHumanAction=!WaitForHumanAction;
 				if (GameState==PlayerPlay)
 				{
-					Toast.makeText(getApplicationContext(), "«Î≥ˆ≈∆", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getApplicationContext(), "«Î≥ˆ≈∆", Toast.LENGTH_SHORT).show();
 					
 					if(WaitForHumanAction==false)
 					{
@@ -375,11 +375,11 @@ public class DuelActivity extends Activity{
 				}
 				if(GameState==PlayerDiscard)
 				{
-					Toast.makeText(getApplicationContext(), "«Î∆˙≈∆", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getApplicationContext(), "«Î∆˙≈∆", Toast.LENGTH_SHORT).show();
 
 					if(WaitForHumanAction==false)
 					{
-						GameState=GameManager.GameStateUpdate(GameState);
+						
 						
 						if(Player.getAllHandCards().size()>Player.getMass())
 						{
@@ -388,6 +388,22 @@ public class DuelActivity extends Activity{
 						
 							PutCardBackToDeck(playedCardByPlayer, Deck);
 						
+							if(Player.getAllHandCards().size()>Player.getMass())
+							{
+								
+								WaitForHumanAction=true;
+								
+							}
+							else
+							{
+								GameState=GameManager.GameStateUpdate(GameState);
+								
+							}
+							
+						}
+						else
+						{
+							GameState=GameManager.GameStateUpdate(GameState);
 							
 						}
 					
@@ -412,7 +428,7 @@ public class DuelActivity extends Activity{
 				}
 				if(GameState==PlayerRespond)
 				{
-					Toast.makeText(getApplicationContext(), "«ÎœÏ”¶", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getApplicationContext(), "«ÎœÏ”¶", Toast.LENGTH_SHORT).show();
 					if(WaitForHumanAction==false)
 					{
 						GameState=GameManager.GameStateUpdate(GameState);
