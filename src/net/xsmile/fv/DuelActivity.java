@@ -2,10 +2,13 @@
 package net.xsmile.fv;
 
 import java.util.ArrayList;
+
+import junit.runner.Version;
 import android.app.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +35,8 @@ public class DuelActivity extends Activity{
     	{  
     		String tag = v.getTag().toString();
     		ChosenCardIndex=Integer.valueOf(tag);
+    		
+    		UpdateAllUIComponents();
         }
 
 	
@@ -61,11 +66,16 @@ public class DuelActivity extends Activity{
 	final static int CUpdateState=8;
 	final static int CpuDiscard=9;
 	final static int GamePause=10;
+	private static final String Joule = "Joule";
+	private static final String Bernuli = "Bernuli";
+
 
 	int GameState=GamePause;/////record the game state
 	ImageButton HandCardArray[];
 	////////UIs
 	Button PlayBtn;
+	Button DeSelectBtn;
+	
 	ImageView PlayerDeckCardView;
 	ImageView CpuDeckCardView;
 	
@@ -77,9 +87,30 @@ public class DuelActivity extends Activity{
 	
 	TextView GameStateTextView;
 	
+	ImageView PlayerImageView;
+	ImageView CpuImageView;
+	
 	protected boolean WaitForHumanAction=true;
 	
-	
+	////////////////////
+	void PersonImageSet(Person p,ImageView iv)
+	{
+		if(p.getName().equals(Bernuli))
+		{
+			iv.setImageResource(R.drawable.bernuli);
+			
+		}
+		else if(p.getName().equals(Joule))
+		{
+			iv.setImageResource(R.drawable.joe);
+			
+		}
+		else
+		{
+			iv.setImageResource(R.drawable.blank);
+		}
+		
+	}
 	/////////////////////
 	int Random2N(int n)
 	{
@@ -112,6 +143,25 @@ public class DuelActivity extends Activity{
 		
 		
 	}
+	Person PersonChooseAndInit(Person p,int index)
+	{
+		if(index==0){
+			
+			p=new Joule(Joule,4);
+		}
+		else if (index==1) 
+		{
+			p=new Bernuli(Bernuli, 4);
+			
+		}
+		else
+		{
+			p=new Person("sic", 4);
+			
+		}
+		return p;
+		
+	}
 	/////////////////////
 	void UpdateCardUI(ArrayList<Card> hand_cards,ImageButton[] handCardArray)
 	{
@@ -130,41 +180,90 @@ public class DuelActivity extends Activity{
 			
 			
 		}
+		if(ChosenCardIndex>=0&&ChosenCardIndex<=handCardArray.length-1)//person selected one card
+		{
+			
+			
+			for (int i = 0; i < handCardArray.length; i++) 
+			{
+				if(i!=ChosenCardIndex)
+				{
+					
+					handCardArray[i].setAlpha(255);
+				}
+			}
+			handCardArray[ChosenCardIndex].setAlpha(150);//.setAlpha(150);
+		}
+		else
+		{
+			for (int i = 0; i < handCardArray.length; i++) 
+			{
+				handCardArray[i].setAlpha(255);
+			}
+			
+		}
+		
 		
 	}
 	
-	void setPicByCardType(View v,Card c)
+	void setPicByCardType(ImageButton v,Card c)
 	{
+		v=(ImageButton)v;
 		if(c==null)
 		{
-			v.setBackgroundColor(Color.WHITE);
+			v.setImageResource(R.drawable.blank);
+			//v.setBackgroundColor(Color.WHITE);
+			
 		}
 		else if(c.getType()==antipower)
 		{
-			v.setBackgroundResource(R.drawable.anti);
+			v.setImageResource(R.drawable.anti);
 		}
 		else if (c.getType()==gravity) {
-			v.setBackgroundResource(R.drawable.gravity);
+			v.setImageResource(R.drawable.gravity);
 		}
 		else if (c.getType()==electric) {
-			v.setBackgroundResource(R.drawable.electric);
+			v.setImageResource(R.drawable.electric);
 		}
 		else if (c.getType()==strong) {
-			v.setBackgroundResource(R.drawable.strong);
+			v.setImageResource(R.drawable.strong);
 		}
 		else if (c.getType()==weak) {
-			v.setBackgroundResource(R.drawable.weak);
+			v.setImageResource(R.drawable.weak);
 		}
 		
 	}
 	void UpdateDeckCardsUI(ImageView IV,Card c)
 	{
-		setPicByCardType(IV, c);
+		setDeckCardPicByCardType(IV, c);
 		
 		
 	}
 	
 	
+	private void setDeckCardPicByCardType(ImageView iV, Card c) {
+		// TODO Auto-generated method stub
+		if(c==null)
+		{
+			iV.setBackgroundColor(Color.WHITE);
+		}
+		else if(c.getType()==antipower)
+		{
+			iV.setImageResource(R.drawable.anti);
+		}
+		else if (c.getType()==gravity) {
+			iV.setImageResource(R.drawable.gravity);
+		}
+		else if (c.getType()==electric) {
+			iV.setImageResource(R.drawable.electric);
+		}
+		else if (c.getType()==strong) {
+			iV.setImageResource(R.drawable.strong);
+		}
+		else if (c.getType()==weak) {
+			iV.setImageResource(R.drawable.weak);
+		}
+	}
 	void UpdateAllUIComponents()
 	{
 		UpdateCardUI(Player.getAllHandCards(),HandCardArray);
@@ -202,6 +301,15 @@ public class DuelActivity extends Activity{
 		Deck.add(new Card(1, 4));
 		Deck.add(new Card(2, 4));
 		Deck.add(new Card(3, 4));
+		Deck.add(new Card(0, 4));
+		Deck.add(new Card(1, 4));
+		Deck.add(new Card(2, 4));
+		Deck.add(new Card(3, 4));
+		Deck.add(new Card(0, 3));
+		Deck.add(new Card(1, 3));
+		Deck.add(new Card(2, 3));
+		Deck.add(new Card(3, 3));
+	
 	}
 	Card TakeOutOneAt(ArrayList<Card> d,int i)
 	{
@@ -215,7 +323,7 @@ public class DuelActivity extends Activity{
 	Card DrawOneCardFromAPerson(int index,Person p)
 	{
 		Card rCard=null;
-		if(index>p.getAllHandCards().size()-1)
+		if(index>p.getAllHandCards().size()-1||index<0)
 		{
 			
 			
@@ -251,10 +359,27 @@ public class DuelActivity extends Activity{
 		//num = intent.getStringExtra("name");
 		n = intent.getStringExtra("PersonNum");
      	int	PersonNum=Integer.valueOf(n);
+
+     	Player=PersonChooseAndInit(Player, PersonNum);
+     	if(PersonNum==0)
+     	{
+     		Cpu=PersonChooseAndInit(Cpu, 1);
+    		
+    	 
+     	}else if (PersonNum==1) {
+     		
+     		Cpu	=PersonChooseAndInit(Cpu, 0);
+		}
+     	else {
+     		Cpu =PersonChooseAndInit(Cpu, 0);
+		}
      	
-     	Cpu=new Joule("Joule", 3);
-     	Player=new Newton("Newton",3);
+     	PlayerImageView=(ImageView)findViewById(R.id.PlayerImageView);
+     	CpuImageView=(ImageView)findViewById(R.id.CpuImageView);
      	
+     	
+     	PersonImageSet(Player, PlayerImageView);
+     	PersonImageSet(Cpu, CpuImageView);
      	
      	
      	
@@ -262,10 +387,10 @@ public class DuelActivity extends Activity{
      	////////////////////
 		////DrawCards for every player
 		///////////////////
-     	Player.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
-     	Player.getOneCard(TakeOutOneAt(Deck, Random2N( Deck.size()-1)));
-     	Cpu.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
-     	Cpu.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
+     	GameManager.giveCardsTo(Player, Deck);
+     	
+     	GameManager.giveCardsTo(Cpu, Deck);
+     
      	
      	HandCardArray=new ImageButton[4];
      	HandCardArray[0]=(ImageButton)findViewById(R.id.ImageButton00);
@@ -295,15 +420,24 @@ public class DuelActivity extends Activity{
      	playedCardByPlayer=null;
      	
      	
-     	
      	UpdateAllUIComponents();
 		
      	PlayBtn=(Button)findViewById(R.id.PlayBtn);
-     	
+     	DeSelectBtn=(Button)findViewById(R.id.DeSelectBtn);
+     	DeSelectBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				ChosenCardIndex=-1;
+				UpdateAllUIComponents();
+			}
+		});
      	
      	GameState=PlayerPlay;//human go first
      	
-     	PlayBtn.setOnClickListener(new OnClickListener() {
+     	PlayBtn.setOnClickListener(new OnClickListener() 
+     	{
 			
 			@Override
 			public void onClick(View v) 
@@ -315,10 +449,16 @@ public class DuelActivity extends Activity{
 					
 					if(WaitForHumanAction==false)
 					{
+						if(ChosenCardIndex>=0)
+						{
 					
-						playedCardByPlayer=	DrawOneCardFromAPerson(ChosenCardIndex, Player);
+							playedCardByPlayer=	DrawOneCardFromAPerson(ChosenCardIndex, Player);
 						// TODO Auto-generated method stub
-					
+						}
+						else
+						{
+							//playedCardByPlayer=	DrawOneCardFromAPerson(0, Player);
+						}
 						/////////////Game State update
 						GameState=GameManager.GameStateUpdate(GameState);
 						////////////
@@ -336,7 +476,7 @@ public class DuelActivity extends Activity{
 					playedCardByCpu=AiDefendLogic(Cpu,playedCardByPlayer);
 					////figure out who should lose mass
 					GameManager.kill(Player, Cpu, playedCardByPlayer, playedCardByCpu);
-
+					
 					///////////put cards back to deck
 					PutCardBackToDeck(playedCardByPlayer, Deck);
 					PutCardBackToDeck(playedCardByCpu, Deck);
@@ -376,36 +516,13 @@ public class DuelActivity extends Activity{
 				if(GameState==PlayerDiscard)
 				{
 					//Toast.makeText(getApplicationContext(), "ÇëÆúÅÆ", Toast.LENGTH_SHORT).show();
-
+						
 					if(WaitForHumanAction==false)
 					{
+						GameManager.takeAwayCardsFromPlayerReturnWaitFlag(Player, Deck, ChosenCardIndex);
 						
+						GameState=GameManager.GameStateUpdate(GameState);
 						
-						if(Player.getAllHandCards().size()>Player.getMass())
-						{
-						
-							playedCardByPlayer=DrawOneCardFromAPerson(ChosenCardIndex,Player);
-						
-							PutCardBackToDeck(playedCardByPlayer, Deck);
-						
-							if(Player.getAllHandCards().size()>Player.getMass())
-							{
-								
-								WaitForHumanAction=true;
-								
-							}
-							else
-							{
-								GameState=GameManager.GameStateUpdate(GameState);
-								
-							}
-							
-						}
-						else
-						{
-							GameState=GameManager.GameStateUpdate(GameState);
-							
-						}
 					
 					}
 					UpdateAllUIComponents();
@@ -413,9 +530,9 @@ public class DuelActivity extends Activity{
 				if (GameState==CpuDrawCards) 
 				{
 					GameState=GameManager.GameStateUpdate(GameState);
-					
-					Cpu.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
-					Cpu.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
+					GameManager.giveCardsTo(Cpu, Deck);
+					//GameManager.giveCardsTo(Cpu, Deck);
+				
 					
 				}
 				if (GameState==CpuPlay) 
@@ -476,15 +593,9 @@ public class DuelActivity extends Activity{
 					GameState=GameManager.GameStateUpdate(GameState);
 					
 					/////Ai discard logic
+					GameManager.takeAwayCardsFromCpuReturnWaitFlag(Cpu, Deck, 0);
 					
-					while(Cpu.getMass()<Cpu.getAllHandCards().size())
-					{
-						
-						playedCardByCpu= AiDisCardLogic(Cpu);
-						PutCardBackToDeck(playedCardByCpu, Deck);
-						
-						
-					}
+				
 					
 					
 				}
@@ -494,8 +605,10 @@ public class DuelActivity extends Activity{
 						
 					GameState=GameManager.GameStateUpdate(GameState);
 					
-					Player.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
-					Player.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
+					GameManager.giveCardsTo(Player, Deck);
+					//GameManager.giveCardsTo(Player, Deck);
+//					Player.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
+//					Player.getOneCard(TakeOutOneAt(Deck, Random2N(Deck.size()-1)));
 					
 					/////UI update
 					UpdateAllUIComponents();
@@ -503,7 +616,7 @@ public class DuelActivity extends Activity{
 					
 				}
 				
-				
+				UpdateAllUIComponents();
 			}
 		});
      	
@@ -518,21 +631,30 @@ public class DuelActivity extends Activity{
 		// TODO Auto-generated method stub
     	Card	cardShouldPlay=null;
     	ArrayList<Card> all_hand_cards=p.getAllHandCards();
-    	if(c.getType()==gravity||c.getType()==electric||c.getType()==strong)
+    	if(c==null)
     	{
-			for (int i = 0; i < all_hand_cards.size(); i++)
-			{
-				if(all_hand_cards.get(i).getType()==antipower)
-				{
-					
-					cardShouldPlay=p.removeOneCardAt(i);
-				}
-			}
+    		
     	}
     	else
     	{
     		
-    		
+    	
+	    	if(c.getType()==gravity||c.getType()==electric||c.getType()==strong)
+	    	{
+				for (int i = 0; i < all_hand_cards.size(); i++)
+				{
+					if(all_hand_cards.get(i).getType()==antipower)
+					{
+						
+						cardShouldPlay=p.removeOneCardAt(i);
+					}
+				}
+	    	}
+	    	else
+	    	{
+	    		
+	    		
+	    	}
     	}
     	return cardShouldPlay;
     	

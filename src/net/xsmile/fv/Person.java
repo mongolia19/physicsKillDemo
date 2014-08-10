@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Person {
 	String Name;
 	int Mass;
+	String MainSkill;
 	ArrayList<Card> HandCards;
 	public Person(String name,int health)
 	{
@@ -55,6 +56,22 @@ public class Person {
 		return HandCards;
 		
 		
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	public String getMainSkill() {
+		return MainSkill;
+	}
+
+	public void setMainSkill(String mainSkill) {
+		MainSkill = mainSkill;
 	}
 	
 }

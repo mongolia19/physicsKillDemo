@@ -8,15 +8,15 @@
 
 
 <ImageView
-    android:id="@+id/CpuImageView"
+    android:id="@+id/PlayerImageView" 
     android:layout_width="100dp"
     android:layout_height="100dp"
     android:layout_alignParentBottom="true"
     android:layout_alignParentRight="true"
     android:src="@drawable/newton" />
 
-<ImageView
-    android:id="@+id/PlayerImageView"
+<ImageView  
+    android:id="@+id/CpuImageView" 
     android:layout_width="100dp"
     android:layout_height="100dp"
     android:layout_alignParentLeft="true"
@@ -28,7 +28,7 @@
     android:layout_width="50dp"
     android:layout_height="100dp"
     android:layout_alignParentBottom="true"
-    android:layout_toRightOf="@+id/PlayerImageView"
+    android:layout_toRightOf="@+id/CpuImageView" 
  
     android:tag="2" />
 
@@ -63,8 +63,8 @@
     android:id="@+id/PlayBtn"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_above="@+id/CpuImageView"
-    android:layout_alignLeft="@+id/CpuImageView"
+    android:layout_above="@+id/PlayerImageView"
+    android:layout_alignLeft="@+id/PlayerImageView"
     android:layout_alignParentRight="true"
     android:text="Play" />
 
@@ -162,9 +162,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
-    android:layout_below="@+id/PlayerImageView"
+    android:layout_below="@+id/CpuImageView" 
     android:layout_marginTop="18dp"
     android:text="Large Text"
     android:textAppearance="?android:attr/textAppearanceLarge" />
+
+<Button
+    android:id="@+id/DeSelectBtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/PlayBtn"
+    android:layout_toRightOf="@+id/ImageButton02"
+    android:text="弃牌" />
 
 </RelativeLayout>

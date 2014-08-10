@@ -4,6 +4,8 @@ public class Joule extends Person{
 
 	public Joule(String name, int health) {
 		super(name, health);
+		Name="Joule";
+		MainSkill="Conservation";
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -13,21 +13,23 @@ public final class R {
     public static final class drawable {
         public static final int anti=0x7f020000;
         public static final int bernuli=0x7f020001;
-        public static final int einstein=0x7f020002;
-        public static final int electric=0x7f020003;
-        public static final int galio=0x7f020004;
-        public static final int gravity=0x7f020005;
-        public static final int icon=0x7f020006;
-        public static final int joe=0x7f020007;
-        public static final int newton=0x7f020008;
-        public static final int strong=0x7f020009;
-        public static final int weak=0x7f02000a;
+        public static final int blank=0x7f020002;
+        public static final int einstein=0x7f020003;
+        public static final int electric=0x7f020004;
+        public static final int galio=0x7f020005;
+        public static final int gravity=0x7f020006;
+        public static final int icon=0x7f020007;
+        public static final int joe=0x7f020008;
+        public static final int newton=0x7f020009;
+        public static final int strong=0x7f02000a;
+        public static final int weak=0x7f02000b;
     }
     public static final class id {
         public static final int CpuCardImageView=0x7f05000a;
         public static final int CpuHandCardNumView=0x7f050012;
         public static final int CpuImageView=0x7f050002;
         public static final int CpuMassView=0x7f050010;
+        public static final int DeSelectBtn=0x7f050014;
         public static final int GameStateTextView=0x7f050013;
         public static final int ImageButton00=0x7f050005;
         public static final int ImageButton01=0x7f050006;
