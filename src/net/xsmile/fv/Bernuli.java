@@ -6,6 +6,7 @@ public class Bernuli extends Person{
 	public Bernuli(String name, int health) {
 		super(name, health);
 		Name="Bernuli";
+		MainSkillisLockSkill=true;
 		// TODO Auto-generated constructor stub
 	}
 	public boolean isIfHasKilled() {

@@ -66,7 +66,7 @@
     android:layout_above="@+id/PlayerImageView"
     android:layout_alignLeft="@+id/PlayerImageView"
     android:layout_alignParentRight="true"
-    android:text="Play" />
+    android:text="确认" />
 
 <ImageView
     android:id="@+id/PlayerCardImageView"
@@ -173,6 +173,14 @@
     android:layout_height="wrap_content"
     android:layout_alignBottom="@+id/PlayBtn"
     android:layout_toRightOf="@+id/ImageButton02"
-    android:text="弃牌" />
+    android:text="取消" />
+
+<Button
+    android:id="@+id/SkillButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/DeSelectBtn"
+    android:layout_alignParentLeft="true"
+    android:text="技能" />
 
 </RelativeLayout>

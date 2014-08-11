@@ -14,26 +14,79 @@ public class  GameManager
 	final static int CpuRespond=7;
 	final static int CUpdateState=8;
 	final static int CpuDiscard=9;
-	final static int GamePause=10;
+	public final static int GamePause=10;
+	public static final int PlayerSkillLaunch = 11;
 	
 	final static int antiPower=4;
 	private static final String Bernuli = "Bernuli";
 	private static final String Joule = "Joule";
+	private static final String Pascal = "Pascal";
+
 	
+	public static void launchSkill(Person p,ArrayList<Card> d,int index) 
+	{
+		Card tempCard;
+		if(p.getName().equals(Pascal))
+		{
+			if(index>=0&&index<=p.getAllHandCards().size()-1)
+			{
+				
+			}
+			else
+			{
+				index=0;
+				
+			}
+			
+			tempCard=p.removeOneCardAt(index);//(index, p);
+			d.add(tempCard);
+			
+		}
+		
+	}
+	
+	public static String GetSkillDescription(Person p) 
+	{
+		return p.SkillDescription;
+	}
+	
+	public static void ToggleSkillLaunchFlag(Person p) 
+	{
+		if	(p.MainSkillisLockSkill==false)
+		{
+				p.setLauchSkill(!p.isLauchSkill());	
+		}
+		
+	}
 	
 	public static void giveCardsTo(Person p,ArrayList<Card> d)
 	{
 		
 		if(d.size()>0)
 		{
+			
 			Card drawnCard;
 			drawnCard=d .get(0);
 			d.remove(0);
 			p.getOneCard(drawnCard);
 			
+			
 			drawnCard=d .get(0);
 			d.remove(0);
 			p.getOneCard(drawnCard);
+			
+			
+			if(p.getName().equals(Pascal))
+			{
+				drawnCard=p.removeOneCardAt(p.getAllHandCards().size()-1);
+				
+				d.add(drawnCard);
+				
+			}
+			
+			
+			
+			
 		}
 		
 		
@@ -58,7 +111,8 @@ public class  GameManager
 		{
 			
 			return true;
-		}else
+		}
+		else
 		{
 			return false;
 		}
@@ -99,6 +153,7 @@ public class  GameManager
 		//////// add detection to judge if the kill card is a antipower which is not allowed
 		////////////////////////
 		boolean playedAForce=false;
+		boolean makeDemage=false;
 		if (KillCard==null)
 		{
 			
@@ -107,6 +162,7 @@ public class  GameManager
 		{
 			playedAForce=true;
 			killed.setMass(killed.getMass()-1);
+			makeDemage=true;
 		}
 		else if (KillCard.getType()!=antiPower&&DefendCard.getType()==antiPower)//One is power the other is anti
 		{
@@ -117,6 +173,7 @@ public class  GameManager
 			playedAForce=true;
 			killed.setMass(killed.getMass()-1);
 			killed.getOneCard(DefendCard);
+			makeDemage=true;
 			
 			
 		}
@@ -131,6 +188,14 @@ public class  GameManager
 		if(killer.getName().equals("Bernuli"))
 		{
 				((Bernuli)killer).setIfHasKilled(playedAForce);
+		}
+		if(killer.getName().equals(Pascal))
+		{
+			
+			if(makeDemage==true)
+			{
+				killed.setMass(killed.getMass()-1);
+			}
 		}
 		
 		
@@ -246,12 +311,28 @@ public class  GameManager
 	
 	
 	
-	public static int GameStateUpdate(int CurrentState) 
+	public static int GameStateUpdate(int CurrentState,Person p,Person c) 
 	{
+		
+		
 		int NextState;
-		if (CurrentState==PlayerDrawCards) {
+		if (CurrentState==PlayerDrawCards) 
+		{
+			if(p.getName().equals(Pascal))
+			{
+				NextState=PlayerSkillLaunch;
+			}
+			else
+			{
+				NextState=PlayerPlay;	
+			}
+		}	
+		else if (CurrentState==PlayerSkillLaunch) 
+		{
+			
 			NextState=PlayerPlay;
-		}else if (CurrentState==PlayerPlay) {
+		}
+		else if (CurrentState==PlayerPlay) {
 			NextState=CpuRespond;
 		}else if (CurrentState==CpuRespond) {
 			NextState=PUpdateState;

@@ -21,13 +21,14 @@ public final class R {
         public static final int icon=0x7f020007;
         public static final int joe=0x7f020008;
         public static final int newton=0x7f020009;
-        public static final int strong=0x7f02000a;
-        public static final int weak=0x7f02000b;
+        public static final int pascal=0x7f02000a;
+        public static final int strong=0x7f02000b;
+        public static final int weak=0x7f02000c;
     }
     public static final class id {
         public static final int CpuCardImageView=0x7f05000a;
         public static final int CpuHandCardNumView=0x7f050012;
-        public static final int CpuImageView=0x7f050002;
+        public static final int CpuImageView=0x7f050003;
         public static final int CpuMassView=0x7f050010;
         public static final int DeSelectBtn=0x7f050014;
         public static final int GameStateTextView=0x7f050013;
@@ -38,8 +39,9 @@ public final class R {
         public static final int PlayBtn=0x7f050008;
         public static final int PlayerCardImageView=0x7f050009;
         public static final int PlayerHandCardNumView=0x7f05000b;
-        public static final int PlayerImageView=0x7f050003;
+        public static final int PlayerImageView=0x7f050002;
         public static final int PlayerMassView=0x7f05000d;
+        public static final int SkillButton=0x7f050015;
         public static final int gallery=0x7f050001;
         public static final int textView1=0x7f05000f;
         public static final int textView2=0x7f05000c;

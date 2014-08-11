@@ -12,7 +12,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class MyFloatViewActivity extends Activity {
-    /** Called when the activity is first created. */
+    private static final int totalScientistNum = 6;
+
+	/** Called when the activity is first created. */
 	
 	
 
@@ -30,12 +32,14 @@ public class MyFloatViewActivity extends Activity {
    	       //delete();
    	        
    	  
-            Integer[] images =new Integer[5] ;
+            Integer[] images =new Integer[totalScientistNum] ;
             images[0]=R.drawable.joe;
             images[1]=R.drawable.bernuli;
             images[2]=R.drawable.einstein;
             images[3]=R.drawable.newton;
             images[4]=R.drawable.galio;
+            images[5]=R.drawable.pascal;
+            
           
             ImageAdapter adapter = new ImageAdapter(this, images);
             adapter.createReflectedImages();//创建倒影效果

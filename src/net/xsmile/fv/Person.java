@@ -5,7 +5,10 @@ import java.util.ArrayList;
 public class Person {
 	String Name;
 	int Mass;
-	String MainSkill;
+	String MainSkill="";
+	String SkillDescription="";
+	boolean MainSkillisLockSkill=true;
+	boolean LauchSkill=true;
 	ArrayList<Card> HandCards;
 	public Person(String name,int health)
 	{
@@ -72,6 +75,22 @@ public class Person {
 
 	public void setMainSkill(String mainSkill) {
 		MainSkill = mainSkill;
+	}
+
+	public String getSkillDescription() {
+		return SkillDescription;
+	}
+
+	public boolean isMainSkillisLockSkill() {
+		return MainSkillisLockSkill;
+	}
+
+	public boolean isLauchSkill() {
+		return LauchSkill;
+	}
+
+	public void setLauchSkill(boolean lauchSkill) {
+		LauchSkill = lauchSkill;
 	}
 	
 }

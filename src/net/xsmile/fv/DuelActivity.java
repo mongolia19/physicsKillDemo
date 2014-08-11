@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import junit.runner.Version;
 import android.app.Activity;
+import android.app.AlertDialog;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -68,13 +70,17 @@ public class DuelActivity extends Activity{
 	final static int GamePause=10;
 	private static final String Joule = "Joule";
 	private static final String Bernuli = "Bernuli";
+	private static final String Pascal = "Pascal";
 
 
 	int GameState=GamePause;/////record the game state
+	boolean SkillValid=false;
+	
 	ImageButton HandCardArray[];
 	////////UIs
 	Button PlayBtn;
 	Button DeSelectBtn;
+	Button SkillButton;
 	
 	ImageView PlayerDeckCardView;
 	ImageView CpuDeckCardView;
@@ -103,6 +109,10 @@ public class DuelActivity extends Activity{
 		else if(p.getName().equals(Joule))
 		{
 			iv.setImageResource(R.drawable.joe);
+			
+		}
+		else if (p.getName().equals(Pascal)) {
+			iv.setImageResource(R.drawable.pascal);
 			
 		}
 		else
@@ -153,6 +163,9 @@ public class DuelActivity extends Activity{
 		{
 			p=new Bernuli(Bernuli, 4);
 			
+		}
+		else if (index==5) {
+			p=new Pascal(Pascal, 4);
 		}
 		else
 		{
@@ -281,6 +294,19 @@ public class DuelActivity extends Activity{
 		UpdateGameStateTextView(GameStateTextView, GameState);
 		
 		
+		//////////////skill button UI update
+		
+		if(Player.isLauchSkill())
+		{
+			SkillButton.getBackground().setAlpha(150);
+		}
+		else
+		{
+			SkillButton.getBackground().setAlpha(255);
+			
+			
+		}
+		
 	}
 	public void initDeck()
 	{
@@ -363,12 +389,12 @@ public class DuelActivity extends Activity{
      	Player=PersonChooseAndInit(Player, PersonNum);
      	if(PersonNum==0)
      	{
-     		Cpu=PersonChooseAndInit(Cpu, 1);
+     		Cpu=PersonChooseAndInit(Cpu, 5);
     		
     	 
      	}else if (PersonNum==1) {
      		
-     		Cpu	=PersonChooseAndInit(Cpu, 0);
+     		Cpu	=PersonChooseAndInit(Cpu, 5);
 		}
      	else {
      		Cpu =PersonChooseAndInit(Cpu, 0);
@@ -382,6 +408,18 @@ public class DuelActivity extends Activity{
      	PersonImageSet(Cpu, CpuImageView);
      	
      	
+     	SkillButton=(Button)findViewById(R.id.SkillButton);
+     	SkillButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				GameManager.ToggleSkillLaunchFlag(Player);
+				
+				UpdateAllUIComponents();
+			}
+		});
+     
      	
      	initDeck();
      	////////////////////
@@ -443,6 +481,25 @@ public class DuelActivity extends Activity{
 			public void onClick(View v) 
 			{
 				WaitForHumanAction=!WaitForHumanAction;
+				
+					
+					if(GameState==GameManager.PlayerSkillLaunch)
+					{
+						if(WaitForHumanAction==false)
+						{
+						
+							GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
+							if(Player.isLauchSkill())
+							{
+								GameManager.launchSkill(Player, Deck, ChosenCardIndex);
+								
+								
+							}
+							
+							WaitForHumanAction=true;
+						}
+					}
+				
 				if (GameState==PlayerPlay)
 				{
 					//Toast.makeText(getApplicationContext(), "Çë³öÅÆ", Toast.LENGTH_SHORT).show();
@@ -460,7 +517,7 @@ public class DuelActivity extends Activity{
 							//playedCardByPlayer=	DrawOneCardFromAPerson(0, Player);
 						}
 						/////////////Game State update
-						GameState=GameManager.GameStateUpdate(GameState);
+						GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 						////////////
 						//update UI
 						
@@ -482,7 +539,7 @@ public class DuelActivity extends Activity{
 					PutCardBackToDeck(playedCardByCpu, Deck);
 					
 					
-					GameState=GameManager.GameStateUpdate(GameState);
+					GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 					
 					
 					
@@ -493,7 +550,7 @@ public class DuelActivity extends Activity{
 				
 				if(GameState==PUpdateState)
 				{
-					GameState=GameManager.GameStateUpdate(GameState);
+					GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 					
 					
 					Intent intent=new Intent(DuelActivity.this,MyFloatViewActivity.class);
@@ -521,7 +578,7 @@ public class DuelActivity extends Activity{
 					{
 						GameManager.takeAwayCardsFromPlayerReturnWaitFlag(Player, Deck, ChosenCardIndex);
 						
-						GameState=GameManager.GameStateUpdate(GameState);
+						GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 						
 					
 					}
@@ -529,7 +586,7 @@ public class DuelActivity extends Activity{
 				}
 				if (GameState==CpuDrawCards) 
 				{
-					GameState=GameManager.GameStateUpdate(GameState);
+					GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 					GameManager.giveCardsTo(Cpu, Deck);
 					//GameManager.giveCardsTo(Cpu, Deck);
 				
@@ -537,7 +594,7 @@ public class DuelActivity extends Activity{
 				}
 				if (GameState==CpuPlay) 
 				{
-					GameState=GameManager.GameStateUpdate(GameState);
+					GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 					playedCardByCpu= AiAttackLogic(Cpu);
 					
 					UpdateAllUIComponents();
@@ -548,7 +605,7 @@ public class DuelActivity extends Activity{
 					//Toast.makeText(getApplicationContext(), "ÇëÏìÓ¦", Toast.LENGTH_SHORT).show();
 					if(WaitForHumanAction==false)
 					{
-						GameState=GameManager.GameStateUpdate(GameState);
+						GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 						
 						playedCardByPlayer=	DrawOneCardFromAPerson(ChosenCardIndex, Player);
 						
@@ -565,7 +622,7 @@ public class DuelActivity extends Activity{
 				if (GameState==CUpdateState)
 				{
 						
-					GameState=GameManager.GameStateUpdate(GameState);
+					GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 				
 					
 
@@ -590,7 +647,7 @@ public class DuelActivity extends Activity{
 				if (GameState==CpuDiscard)
 				{
 						
-					GameState=GameManager.GameStateUpdate(GameState);
+					GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 					
 					/////Ai discard logic
 					GameManager.takeAwayCardsFromCpuReturnWaitFlag(Cpu, Deck, 0);
@@ -603,7 +660,7 @@ public class DuelActivity extends Activity{
 				if (GameState==PlayerDrawCards)
 				{
 						
-					GameState=GameManager.GameStateUpdate(GameState);
+					GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
 					
 					GameManager.giveCardsTo(Player, Deck);
 					//GameManager.giveCardsTo(Player, Deck);
