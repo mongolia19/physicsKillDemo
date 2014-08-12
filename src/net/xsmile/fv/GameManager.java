@@ -185,7 +185,7 @@ public class  GameManager
 		{
 			
 		}
-		else if (KillCard.getType()!=antiPower&&(DefendCard==null))//The killed's mass is reduced by one
+		else if ((KillCard.getType()==0||KillCard.getType()==1||KillCard.getType()==2)&&(DefendCard==null))//The killed's mass is reduced by one
 		{
 			playedAForce=true;
 			killed.setMass(killed.getMass()-1);

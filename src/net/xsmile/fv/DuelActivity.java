@@ -491,7 +491,7 @@ public class DuelActivity extends Activity{
 			}
 		});
      	
-     	GameState=PlayerPlay;//human go first
+     	GameState=GameManager.PlayerSkillLaunch;//human go first
      	
      	PlayBtn.setOnClickListener(new OnClickListener() 
      	{
@@ -526,14 +526,33 @@ public class DuelActivity extends Activity{
 					{
 						WaitForHumanAction=false;
 					}
-					else{
+					else if(AbandonFlag==false&&GameManager.HasOtherCards(Player))
+					{
+						WaitForHumanAction=true;
 						
 					}
-					WaitForHumanAction=GameManager.ShouldWaitForPlayer(GameState, Player, Cpu);
+					else if(Player.HasPlayedForce==true&&GameManager.HasOtherCards(Player))
+					{
+						WaitForHumanAction=true;
+						
+					}else if(Player.HasPlayedForce==false)
+					{
+						
+						WaitForHumanAction=true;
+						
+					}
+					else
+					{
+						
+						WaitForHumanAction=false;
+					}
+					
+				//should be a function	
+				//	WaitForHumanAction=GameManager.ShouldWaitForPlayer(GameState, Player, Cpu);
 					
 					if(WaitForHumanAction==false)
 					{
-						if(ChosenCardIndex>=0)
+						if(ChosenCardIndex>=0&&ChosenCardIndex<=Player.getAllHandCards().size()-1)
 						{
 					
 							playedCardByPlayer=	DrawOneCardFromAPerson(ChosenCardIndex, Player);
