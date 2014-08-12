@@ -9,6 +9,7 @@ public class Person {
 	String SkillDescription="";
 	boolean MainSkillisLockSkill=true;
 	boolean LauchSkill=true;
+	boolean HasPlayedForce=false;
 	ArrayList<Card> HandCards;
 	public Person(String name,int health)
 	{
@@ -91,6 +92,14 @@ public class Person {
 
 	public void setLauchSkill(boolean lauchSkill) {
 		LauchSkill = lauchSkill;
+	}
+
+	public boolean isHasPlayedForce() {
+		return HasPlayedForce;
+	}
+
+	public void setHasPlayedForce(boolean hasPlayedForce) {
+		HasPlayedForce = hasPlayedForce;
 	}
 	
 }

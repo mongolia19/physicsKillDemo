@@ -4,10 +4,10 @@ public class Card {
 	int color=0;//0 spade,1 heart 2 club 3 diamond
 	
 	
-	int Type=0;//0 Gravity 1 electric 2 strong 3 weak 4 antiForce 
+	int Type=0;//0 Gravity 1 electric 2 strong 3 weak 4 antiForce 5 qunitimTanglle 6 GravityCapture 
 	
 	
-	
+	int Num=1;
 	public Card( int c,int t) {
 		
 		color=c;

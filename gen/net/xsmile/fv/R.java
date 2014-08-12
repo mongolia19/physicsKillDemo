@@ -26,6 +26,7 @@ public final class R {
         public static final int weak=0x7f02000c;
     }
     public static final class id {
+        public static final int AbandonBtn=0x7f050016;
         public static final int CpuCardImageView=0x7f05000a;
         public static final int CpuHandCardNumView=0x7f050012;
         public static final int CpuImageView=0x7f050003;

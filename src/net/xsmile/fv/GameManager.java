@@ -21,8 +21,35 @@ public class  GameManager
 	private static final String Bernuli = "Bernuli";
 	private static final String Joule = "Joule";
 	private static final String Pascal = "Pascal";
-
 	
+	
+	public static boolean HasOtherCards(Person p)  ////player has other cards except forces
+	{
+		ArrayList<Card> hand_cards=p.getAllHandCards();
+		for (int i = 0; i < hand_cards.size(); i++) 
+		{
+			if	(hand_cards.get(i).getType()>4)
+			{
+				
+				return true;
+				
+			}
+		}
+		return false;
+		
+	}
+	
+	public static boolean ShouldWaitForPlayer(int state,Person p,Person c) {
+		if(p.isHasPlayedForce()&&!HasOtherCards(p))
+		{
+			return false;
+			
+			
+		}
+		else {
+			return true;
+		}
+	}
 	public static void launchSkill(Person p,ArrayList<Card> d,int index) 
 	{
 		Card tempCard;
@@ -78,9 +105,9 @@ public class  GameManager
 			
 			if(p.getName().equals(Pascal))
 			{
-				drawnCard=p.removeOneCardAt(p.getAllHandCards().size()-1);
-				
-				d.add(drawnCard);
+//				drawnCard=p.removeOneCardAt(p.getAllHandCards().size()-1);
+//				
+//				d.add(drawnCard);
 				
 			}
 			
@@ -185,6 +212,11 @@ public class  GameManager
 			
 		}
 		
+		
+		killer.setHasPlayedForce(playedAForce);
+			
+		
+		
 		if(killer.getName().equals("Bernuli"))
 		{
 				((Bernuli)killer).setIfHasKilled(playedAForce);
@@ -192,7 +224,7 @@ public class  GameManager
 		if(killer.getName().equals(Pascal))
 		{
 			
-			if(makeDemage==true)
+			if(makeDemage==true&&killer.LauchSkill)
 			{
 				killed.setMass(killed.getMass()-1);
 			}

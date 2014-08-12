@@ -183,4 +183,14 @@
     android:layout_alignParentLeft="true"
     android:text="技能" />
 
+<Button
+    android:id="@+id/AbandonBtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/textView2"
+    android:layout_alignBottom="@+id/textView2"
+    android:layout_alignRight="@+id/DeSelectBtn"
+    android:layout_toRightOf="@+id/PlayerCardImageView"
+    android:text="放弃" />
+
 </RelativeLayout>

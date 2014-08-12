@@ -3,17 +3,12 @@ package net.xsmile.fv;
 
 import java.util.ArrayList;
 
-import junit.runner.Version;
 import android.app.Activity;
-import android.app.AlertDialog;
-
 import android.content.Intent;
 import android.graphics.Color;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -81,6 +76,7 @@ public class DuelActivity extends Activity{
 	Button PlayBtn;
 	Button DeSelectBtn;
 	Button SkillButton;
+	Button AbandonButton;
 	
 	ImageView PlayerDeckCardView;
 	ImageView CpuDeckCardView;
@@ -97,7 +93,7 @@ public class DuelActivity extends Activity{
 	ImageView CpuImageView;
 	
 	protected boolean WaitForHumanAction=true;
-	
+	boolean AbandonFlag=false;
 	////////////////////
 	void PersonImageSet(Person p,ImageView iv)
 	{
@@ -144,6 +140,10 @@ public class DuelActivity extends Activity{
 		{
 			tv.setText("玩家响应阶段");
 			
+		}
+		else if(state==GameManager.PlayerSkillLaunch)
+		{
+			tv.setText("是否发动技能 ？");
 		}
 		else
 		{
@@ -419,7 +419,26 @@ public class DuelActivity extends Activity{
 				UpdateAllUIComponents();
 			}
 		});
-     
+     	AbandonButton=(Button)findViewById(R.id.AbandonBtn);
+     	AbandonButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				AbandonFlag=!AbandonFlag;
+				//////////////////////Abandon Button UI Update
+				
+				if(AbandonFlag)
+				{
+					AbandonButton.getBackground().setAlpha(150);
+				}
+				else
+				{
+					AbandonButton.getBackground().setAlpha(255);
+				}
+				
+			}
+		});
      	
      	initDeck();
      	////////////////////
@@ -503,6 +522,14 @@ public class DuelActivity extends Activity{
 				if (GameState==PlayerPlay)
 				{
 					//Toast.makeText(getApplicationContext(), "请出牌", Toast.LENGTH_SHORT).show();
+					if(AbandonFlag)
+					{
+						WaitForHumanAction=false;
+					}
+					else{
+						
+					}
+					WaitForHumanAction=GameManager.ShouldWaitForPlayer(GameState, Player, Cpu);
 					
 					if(WaitForHumanAction==false)
 					{
