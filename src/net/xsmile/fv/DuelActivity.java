@@ -16,11 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DuelActivity extends Activity{
-	private static final int antipower = 4;
-	private static final int gravity = 0;
-	private static final int electric = 1;
-	private static final int strong = 2;
-	private static final int weak = 3;
+	
 
 
 	/////////
@@ -228,20 +224,20 @@ public class DuelActivity extends Activity{
 			//v.setBackgroundColor(Color.WHITE);
 			
 		}
-		else if(c.getType()==antipower)
+		else if(c.getType()==Card. antipower)
 		{
 			v.setImageResource(R.drawable.anti);
 		}
-		else if (c.getType()==gravity) {
+		else if (c.getType()==Card.gravity) {
 			v.setImageResource(R.drawable.gravity);
 		}
-		else if (c.getType()==electric) {
+		else if (c.getType()==Card.electric) {
 			v.setImageResource(R.drawable.electric);
 		}
-		else if (c.getType()==strong) {
+		else if (c.getType()==Card.strong) {
 			v.setImageResource(R.drawable.strong);
 		}
-		else if (c.getType()==weak) {
+		else if (c.getType()==Card.weak) {
 			v.setImageResource(R.drawable.weak);
 		}
 		
@@ -260,20 +256,20 @@ public class DuelActivity extends Activity{
 		{
 			iV.setBackgroundColor(Color.WHITE);
 		}
-		else if(c.getType()==antipower)
+		else if(c.getType()==Card.antipower)
 		{
 			iV.setImageResource(R.drawable.anti);
 		}
-		else if (c.getType()==gravity) {
+		else if (c.getType()==Card.gravity) {
 			iV.setImageResource(R.drawable.gravity);
 		}
-		else if (c.getType()==electric) {
+		else if (c.getType()==Card.electric) {
 			iV.setImageResource(R.drawable.electric);
 		}
-		else if (c.getType()==strong) {
+		else if (c.getType()==Card.strong) {
 			iV.setImageResource(R.drawable.strong);
 		}
-		else if (c.getType()==weak) {
+		else if (c.getType()==Card.weak) {
 			iV.setImageResource(R.drawable.weak);
 		}
 	}
@@ -576,7 +572,7 @@ public class DuelActivity extends Activity{
 				if	(GameState==CpuRespond)
 				{
 					/////AI Logic
-					playedCardByCpu=AiDefendLogic(Cpu,playedCardByPlayer);
+					playedCardByCpu=AiLogics.AiDefendLogic(Cpu,playedCardByPlayer);
 					////figure out who should lose mass
 					GameManager.kill(Player, Cpu, playedCardByPlayer, playedCardByCpu);
 					
@@ -641,7 +637,7 @@ public class DuelActivity extends Activity{
 				if (GameState==CpuPlay) 
 				{
 					GameState=GameManager.GameStateUpdate(GameState, Player, Cpu);
-					playedCardByCpu= AiAttackLogic(Cpu);
+					playedCardByCpu=AiLogics.AiAttackLogic(Cpu);
 					
 					UpdateAllUIComponents();
 					 WaitForHumanAction=true;
@@ -729,81 +725,7 @@ public class DuelActivity extends Activity{
     
   
     
-    protected Card AiDefendLogic(Person p ,Card c) 
-    {
-		// TODO Auto-generated method stub
-    	Card	cardShouldPlay=null;
-    	ArrayList<Card> all_hand_cards=p.getAllHandCards();
-    	if(c==null)
-    	{
-    		
-    	}
-    	else
-    	{
-    		
-    	
-	    	if(c.getType()==gravity||c.getType()==electric||c.getType()==strong)
-	    	{
-				for (int i = 0; i < all_hand_cards.size(); i++)
-				{
-					if(all_hand_cards.get(i).getType()==antipower)
-					{
-						
-						cardShouldPlay=p.removeOneCardAt(i);
-					}
-				}
-	    	}
-	    	else
-	    	{
-	    		
-	    		
-	    	}
-    	}
-    	return cardShouldPlay;
-    	
-	}
-    
-    
-
-    
-    protected Card AiAttackLogic(Person p) 
-    {
-		// TODO Auto-generated method stub
-    	Card	cardShouldPlay=null;
-    	ArrayList<Card> all_hand_cards=p.getAllHandCards();
-    
-			for (int i = 0; i < all_hand_cards.size(); i++)
-			{
-				if(all_hand_cards.get(i).getType()!=antipower)
-				{
-					
-					cardShouldPlay=p.removeOneCardAt(i);
-				}
-			}
-  
-    
-    	return cardShouldPlay;
-    	
-	}
-    
-    
-    protected Card AiDisCardLogic(Person p) 
-    {
-		// TODO Auto-generated method stub
-    	Card	cardShouldPlay=null;
-    	ArrayList<Card> all_hand_cards=p.getAllHandCards();
-    
-		if (all_hand_cards.size()>0) {
-			cardShouldPlay=p.removeOneCardAt(0);
-		}
-					
-	
-			
-  
-    
-    	return cardShouldPlay;
-    	
-	}
+   
     
 	@Override
     public void onDestroy(){

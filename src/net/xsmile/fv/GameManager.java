@@ -21,8 +21,43 @@ public class  GameManager
 	private static final String Bernuli = "Bernuli";
 	private static final String Joule = "Joule";
 	private static final String Pascal = "Pascal";
-	
-	
+	///////
+	//this method does not return the cards to deck ,please put them back;mannually
+	//////
+	public static void DealPlayCards(Person killer,Person killed,Card killCard,Card DefendCard,ArrayList<Card> d) 
+	{
+		
+		if(killCard.getType()>4)///played a jin nang card
+		{
+			Card tempCard;
+			boolean playedAForce=false;
+			boolean makeDemage=false;
+			if (killCard==null)
+			{
+				
+			}
+			else if ((killCard.getType()==5)&&(DefendCard==null))//The killed tanglement
+			{
+				tempCard=killed.getAllHandCards().get(0);
+				killed.getAllHandCards().remove(0);
+				
+				d.add(tempCard);//		tempCard
+				
+				
+		
+			}
+			
+		
+		}else
+		{
+			
+			
+			
+		}
+		
+		
+		
+	}
 	public static boolean HasOtherCards(Person p)  ////player has other cards except forces
 	{
 		ArrayList<Card> hand_cards=p.getAllHandCards();
