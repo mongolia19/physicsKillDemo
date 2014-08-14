@@ -22,8 +22,9 @@ public final class R {
         public static final int joe=0x7f020008;
         public static final int newton=0x7f020009;
         public static final int pascal=0x7f02000a;
-        public static final int strong=0x7f02000b;
-        public static final int weak=0x7f02000c;
+        public static final int quntangle=0x7f02000b;
+        public static final int strong=0x7f02000c;
+        public static final int weak=0x7f02000d;
     }
     public static final class id {
         public static final int AbandonBtn=0x7f050016;

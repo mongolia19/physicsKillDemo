@@ -119,6 +119,19 @@ public class DuelActivity extends Activity{
 		
 		 return (int)(Math.random()*n)+1;
 	}
+	/////////////////
+	void UpdateAbandonBtnUI()
+	{
+		if(AbandonFlag)
+		{
+			AbandonButton.getBackground().setAlpha(150);
+		}
+		else
+		{
+			AbandonButton.getBackground().setAlpha(255);
+		}
+	
+	}
 	///////////////////
 	void UpdateGameStateTextView(TextView tv,int state)
 	{
@@ -240,6 +253,10 @@ public class DuelActivity extends Activity{
 		else if (c.getType()==Card.weak) {
 			v.setImageResource(R.drawable.weak);
 		}
+		else if (c.getType()==Card.qunitimTanglle) {
+			v.setImageResource(R.drawable.quntangle);
+			
+		}
 		
 	}
 	void UpdateDeckCardsUI(ImageView IV,Card c)
@@ -302,11 +319,16 @@ public class DuelActivity extends Activity{
 			
 			
 		}
+		UpdateAbandonBtnUI();
 		
 	}
 	public void initDeck()
 	{
 		Deck=new ArrayList<Card>();
+		Deck.add(new Card(0, Card.qunitimTanglle));
+		Deck.add(new Card(1, Card.qunitimTanglle));
+		Deck.add(new Card(2, Card.qunitimTanglle));
+		Deck.add(new Card(3, Card.qunitimTanglle));
 		Deck.add(new Card(0, 0));
 		Deck.add(new Card(1, 0));
 		Deck.add(new Card(2, 0));
@@ -424,14 +446,7 @@ public class DuelActivity extends Activity{
 				AbandonFlag=!AbandonFlag;
 				//////////////////////Abandon Button UI Update
 				
-				if(AbandonFlag)
-				{
-					AbandonButton.getBackground().setAlpha(150);
-				}
-				else
-				{
-					AbandonButton.getBackground().setAlpha(255);
-				}
+				UpdateAllUIComponents();
 				
 			}
 		});
@@ -512,6 +527,8 @@ public class DuelActivity extends Activity{
 							}
 							
 							WaitForHumanAction=true;
+							AbandonFlag=false;
+							
 						}
 					}
 				
@@ -522,26 +539,7 @@ public class DuelActivity extends Activity{
 					{
 						WaitForHumanAction=false;
 					}
-					else if(AbandonFlag==false&&GameManager.HasOtherCards(Player))
-					{
-						WaitForHumanAction=true;
-						
-					}
-					else if(Player.HasPlayedForce==true&&GameManager.HasOtherCards(Player))
-					{
-						WaitForHumanAction=true;
-						
-					}else if(Player.HasPlayedForce==false)
-					{
-						
-						WaitForHumanAction=true;
-						
-					}
-					else
-					{
-						
-						WaitForHumanAction=false;
-					}
+					
 					
 				//should be a function	
 				//	WaitForHumanAction=GameManager.ShouldWaitForPlayer(GameState, Player, Cpu);
@@ -574,7 +572,9 @@ public class DuelActivity extends Activity{
 					/////AI Logic
 					playedCardByCpu=AiLogics.AiDefendLogic(Cpu,playedCardByPlayer);
 					////figure out who should lose mass
-					GameManager.kill(Player, Cpu, playedCardByPlayer, playedCardByCpu);
+					GameManager.DealPlayCards(Player, Cpu, playedCardByPlayer, playedCardByCpu, Deck);
+					
+					//GameManager.kill(Player, Cpu, playedCardByPlayer, playedCardByCpu);
 					
 					///////////put cards back to deck
 					PutCardBackToDeck(playedCardByPlayer, Deck);

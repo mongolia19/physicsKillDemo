@@ -17,7 +17,7 @@ public class  GameManager
 	public final static int GamePause=10;
 	public static final int PlayerSkillLaunch = 11;
 	
-	final static int antiPower=4;
+	
 	private static final String Bernuli = "Bernuli";
 	private static final String Joule = "Joule";
 	private static final String Pascal = "Pascal";
@@ -47,10 +47,10 @@ public class  GameManager
 		
 			}
 			
-		
-		}else
+		}
+		else
 		{
-			
+			kill(killer, killed, killCard, DefendCard);
 			
 			
 		}
@@ -61,16 +61,27 @@ public class  GameManager
 	public static boolean HasOtherCards(Person p)  ////player has other cards except forces
 	{
 		ArrayList<Card> hand_cards=p.getAllHandCards();
-		for (int i = 0; i < hand_cards.size(); i++) 
+		if(hand_cards.size()==0)
 		{
-			if	(hand_cards.get(i).getType()>4)
-			{
-				
-				return true;
-				
-			}
+			return false;
+			
 		}
-		return false;
+		else
+		{
+			for (int i = 0; i < hand_cards.size(); i++) 
+			{
+				if	(hand_cards.get(i).getType()>4)
+				{
+					
+					return true;
+					
+				}
+			}
+			return false;
+			
+		}
+		
+		
 		
 	}
 	
@@ -226,11 +237,11 @@ public class  GameManager
 			killed.setMass(killed.getMass()-1);
 			makeDemage=true;
 		}
-		else if (KillCard.getType()!=antiPower&&DefendCard.getType()==antiPower)//One is power the other is anti
+		else if (KillCard.getType()!=Card.antipower &&DefendCard.getType()==Card. antipower)//One is power the other is anti
 		{
 			playedAForce=true;
 		}
-		else if(KillCard.getType()!=antiPower&&DefendCard.getType()!=antiPower)
+		else if(KillCard.getType()!=Card.antipower&&DefendCard.getType()!=Card.antipower)
 		{
 			playedAForce=true;
 			killed.setMass(killed.getMass()-1);
@@ -239,7 +250,7 @@ public class  GameManager
 			
 			
 		}
-		else if(KillCard.getType()==antiPower)
+		else if(KillCard.getType()==Card.antipower)
 		{
 			
 			killer.getOneCard(KillCard);
@@ -404,7 +415,29 @@ public class  GameManager
 		}else if (CurrentState==CpuRespond) {
 			NextState=PUpdateState;
 		}else if (CurrentState==PUpdateState) {
-			NextState=PlayerDiscard;
+			
+		if(p.getAllHandCards().size()==0){
+			NextState=CpuDrawCards;
+		}	
+		else if(p.HasPlayedForce&& GameManager.HasOtherCards(p))
+			{
+				NextState=PlayerPlay;
+				
+			}
+			else if(p.HasPlayedForce==true&&!GameManager.HasOtherCards(p))
+			{
+				NextState=PlayerDiscard;
+				
+			}
+			else
+			{
+				
+				NextState=PlayerPlay;
+				
+			}
+			
+			
+			
 		}
 		else if (CurrentState==PlayerDiscard) {
 			NextState=CpuDrawCards;
